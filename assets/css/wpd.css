@@ -1,0 +1,1587 @@
+/* ============================================================
+ * WP 診断ツール - フロント用 CSS
+ * 3パターン + 結果ページ
+ * ============================================================ */
+
+.wpd-form,
+.wpd-form *,
+.wpd-form *::before,
+.wpd-form *::after {
+	box-sizing: border-box;
+}
+
+.wpd-form {
+	max-width: 840px;
+	margin: 32px auto;
+	font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", sans-serif;
+	color: #222;
+	line-height: 1.6;
+}
+
+/* h2と被らないように、診断フォーム内のhタグは独自スタイルで完結 */
+.wpd-form h2,
+.wpd-form h3,
+.wpd-form h4 {
+	margin: 0;
+	padding: 0;
+	border: none;
+	background: none;
+	font-family: inherit;
+}
+
+.wpd-hint {
+	font-size: 0.8rem;
+	color: #777;
+	margin: 8px 0 0;
+}
+
+/* ============================================================
+ * 1問ずつ表示（step mode） 共通スタイル
+ * ============================================================ */
+.wpd-display-step .wpd-question[hidden] {
+	display: none !important;
+}
+
+.wpd-step-nav {
+	margin-top: 24px;
+}
+
+.wpd-step-progress {
+	text-align: center;
+	font-size: 0.9rem;
+	font-weight: 700;
+	color: #666;
+	margin-bottom: 8px;
+}
+
+.wpd-step-bar {
+	background: #eee;
+	border-radius: 999px;
+	height: 6px;
+	overflow: hidden;
+	margin-bottom: 20px;
+}
+
+.wpd-step-bar-fill {
+	background: linear-gradient(90deg, #ff5566 0%, #e60012 100%);
+	height: 100%;
+	width: 20%;
+	transition: width 0.3s ease;
+}
+
+.wpd-style-b .wpd-step-bar-fill {
+	background: #2271b1;
+}
+
+.wpd-step-buttons {
+	display: flex;
+	justify-content: center;
+	gap: 12px;
+	align-items: center;
+	flex-wrap: wrap;
+}
+
+.wpd-step-prev,
+.wpd-step-next {
+	appearance: none;
+	-webkit-appearance: none;
+	font-family: inherit;
+	font-size: 1rem;
+	font-weight: 700;
+	padding: 12px 24px;
+	border-radius: 999px;
+	cursor: pointer;
+	border: 2px solid #ddd;
+	background: #fff;
+	color: #333;
+	transition: all 0.15s;
+	min-width: 120px;
+}
+
+.wpd-step-prev:hover:not(:disabled),
+.wpd-step-next:hover {
+	border-color: #999;
+	background: #f7f7f7;
+}
+
+.wpd-step-prev:disabled {
+	opacity: 0.4;
+	cursor: not-allowed;
+}
+
+.wpd-style-a .wpd-step-next {
+	background: linear-gradient(180deg, #ff5566 0%, #e60012 60%, #b8000e 100%);
+	color: #fff;
+	border-color: #e60012;
+	box-shadow: 0 3px 0 #b8000e;
+}
+.wpd-style-a .wpd-step-next:hover {
+	background: linear-gradient(180deg, #ff6677 0%, #e60012 60%, #b8000e 100%);
+	border-color: #e60012;
+}
+
+.wpd-style-b .wpd-step-next {
+	background: #2271b1;
+	color: #fff;
+	border-color: #2271b1;
+}
+.wpd-style-b .wpd-step-next:hover {
+	background: #135e96;
+	border-color: #135e96;
+}
+
+/* 共通：選択ボタン */
+.wpd-opt {
+	appearance: none;
+	-webkit-appearance: none;
+	font-family: inherit;
+	font-size: 0.95rem;
+	font-weight: 600;
+	line-height: 1.3;
+	cursor: pointer;
+	transition: all 0.15s ease;
+	min-height: 42px;
+}
+
+.wpd-opt:focus-visible {
+	outline: 2px solid #e60012;
+	outline-offset: 2px;
+}
+
+/* ============================================================
+ * スタイルA：ポップで目立つ（赤グラデ）
+ * ============================================================ */
+.wpd-style-a .wpd-a-hero {
+	background: linear-gradient(135deg, #ff5566 0%, #e60012 100%);
+	color: #fff;
+	border-radius: 16px 16px 0 0;
+	padding: 28px 24px 24px;
+	text-align: center;
+	position: relative;
+	overflow: hidden;
+}
+
+.wpd-style-a .wpd-a-hero::before {
+	content: '';
+	position: absolute;
+	top: -30px;
+	right: -30px;
+	width: 140px;
+	height: 140px;
+	background: rgba(255,255,255,0.1);
+	border-radius: 50%;
+}
+
+.wpd-style-a .wpd-a-hero::after {
+	content: '';
+	position: absolute;
+	bottom: -40px;
+	left: -20px;
+	width: 100px;
+	height: 100px;
+	background: rgba(255,255,255,0.08);
+	border-radius: 50%;
+}
+
+.wpd-style-a .wpd-a-badge {
+	display: inline-block;
+	background: rgba(255,255,255,0.2);
+	border-radius: 999px;
+	padding: 6px 16px;
+	font-size: 0.85rem;
+	font-weight: 700;
+	margin-bottom: 12px;
+	position: relative;
+	z-index: 1;
+}
+
+.wpd-style-a .wpd-a-title {
+	font-size: 1.6rem;
+	font-weight: 800;
+	line-height: 1.35;
+	margin: 0 0 8px;
+	color: #fff;
+	position: relative;
+	z-index: 1;
+	text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+@media (max-width: 480px) {
+	.wpd-style-a .wpd-a-title { font-size: 1.3rem; }
+}
+
+.wpd-style-a .wpd-a-lead {
+	font-size: 0.95rem;
+	margin: 0;
+	opacity: 0.95;
+	position: relative;
+	z-index: 1;
+	font-weight: 600;
+}
+
+.wpd-style-a .wpd-a-form {
+	background: #fff;
+	border: 3px solid #e60012;
+	border-top: none;
+	border-radius: 0 0 16px 16px;
+	padding: 8px 24px 28px;
+}
+
+.wpd-style-a .wpd-a-question {
+	margin: 20px 0;
+	padding-bottom: 18px;
+	border-bottom: 1px dashed #eee;
+}
+
+/* 未回答時のエラー表示 */
+.wpd-question-error {
+	background: #fef2f2;
+	border-radius: 8px;
+	padding: 12px 14px !important;
+	margin-left: -14px !important;
+	margin-right: -14px !important;
+	box-shadow: 0 0 0 2px #fca5a5;
+	transition: background 0.2s, box-shadow 0.2s;
+}
+
+.wpd-question-error-msg {
+	margin: 10px 0 0;
+	color: #b32d2e;
+	font-size: 0.85rem;
+	font-weight: 600;
+}
+
+.wpd-style-a .wpd-a-question:last-of-type {
+	border-bottom: none;
+	padding-bottom: 0;
+}
+
+.wpd-style-a .wpd-a-qhead {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	margin-bottom: 14px;
+}
+
+.wpd-style-a .wpd-a-qnum {
+	flex-shrink: 0;
+	width: 34px;
+	height: 34px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	background: linear-gradient(135deg, #ff5566 0%, #e60012 100%);
+	color: #fff;
+	font-weight: 800;
+	font-size: 1rem;
+	border-radius: 50%;
+	box-shadow: 0 2px 6px rgba(230,0,18,0.3);
+}
+
+.wpd-style-a .wpd-a-qlabel {
+	margin: 0;
+	font-size: 1.1rem;
+	font-weight: 700;
+	color: #222;
+}
+
+.wpd-style-a .wpd-a-options {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+}
+
+.wpd-style-a .wpd-a-opt {
+	background: #fff;
+	border: 2px solid #e2e2e2;
+	color: #222;
+	padding: 10px 18px;
+	border-radius: 999px;
+}
+
+/* スマホ：入るだけ横に詰めて折り返す（余白・文字を少し詰める） */
+@media (max-width: 480px) {
+	.wpd-style-a .wpd-a-options {
+		gap: 8px;
+	}
+	.wpd-style-a .wpd-a-opt {
+		padding: 10px 14px;
+		font-size: 0.85rem;
+	}
+}
+
+.wpd-style-a .wpd-a-opt:hover {
+	border-color: #e60012;
+	background: #fff0f1;
+}
+
+.wpd-style-a .wpd-a-opt.is-selected {
+	background: linear-gradient(135deg, #ff5566 0%, #e60012 100%);
+	border-color: #e60012;
+	color: #fff;
+	box-shadow: 0 2px 6px rgba(230,0,18,0.3);
+}
+
+.wpd-style-a .wpd-a-submit-wrap {
+	margin-top: 28px;
+	text-align: center;
+}
+
+.wpd-style-a .wpd-a-submit {
+	appearance: none;
+	-webkit-appearance: none;
+	background: linear-gradient(180deg, #ff5566 0%, #e60012 60%, #b8000e 100%);
+	color: #fff;
+	border: none;
+	font-family: inherit;
+	font-size: 1.2rem;
+	font-weight: 800;
+	padding: 16px 48px;
+	border-radius: 999px;
+	cursor: pointer;
+	box-shadow: 0 4px 0 #b8000e, 0 6px 14px rgba(230,0,18,.25);
+	display: inline-flex;
+	align-items: center;
+	gap: 10px;
+	transition: transform 0.1s, box-shadow 0.1s;
+	letter-spacing: 0.05em;
+}
+
+.wpd-style-a .wpd-a-submit:hover {
+	transform: translateY(2px);
+	box-shadow: 0 2px 0 #b8000e, 0 3px 8px rgba(230,0,18,.25);
+}
+
+.wpd-style-a .wpd-a-submit:active {
+	transform: translateY(4px);
+	box-shadow: 0 0 0 #b8000e;
+}
+
+.wpd-style-a .wpd-a-arrow {
+	font-size: 0.85rem;
+}
+
+/* ============================================================
+ * 結果ページ（スタイル共通）
+ * ============================================================ */
+.wpd-result-wrap {
+	max-width: 760px;
+	margin: 24px auto;
+	padding: 0 16px;
+	font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", sans-serif;
+	color: #222;
+}
+
+.wpd-result-wrap *,
+.wpd-result-wrap *::before,
+.wpd-result-wrap *::after {
+	box-sizing: border-box;
+}
+
+.wpd-empty-result {
+	padding: 40px 20px;
+	text-align: center;
+	color: #777;
+	background: #f7f7f7;
+	border-radius: 12px;
+}
+
+.wpd-card-result {
+	background: #fff;
+	border: 1px solid #e2e2e2;
+	border-radius: 12px;
+	padding: 20px;
+	margin-bottom: 24px;
+	box-shadow: 0 2px 8px rgba(0,0,0,.06);
+}
+
+.wpd-card-result-head {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	margin-bottom: 12px;
+	flex-wrap: wrap;
+}
+
+.wpd-rank-badge {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-width: 44px;
+	height: 28px;
+	padding: 0 10px;
+	background: #e60012;
+	color: #fff;
+	font-weight: 800;
+	font-size: 0.9rem;
+	border-radius: 4px;
+}
+
+.wpd-rank-1 .wpd-rank-badge { background: #d4af37; }
+.wpd-rank-2 .wpd-rank-badge { background: #a5a5a5; }
+.wpd-rank-3 .wpd-rank-badge { background: #c89e6a; }
+
+.wpd-pr-tag {
+	font-size: 1.1rem;
+	font-weight: 800;
+	color: #222;
+}
+
+.wpd-catch {
+	background: #fff0f1;
+	color: #e60012;
+	font-weight: 700;
+	padding: 6px 12px;
+	border-radius: 4px;
+	display: inline-block;
+	margin: 0 0 12px;
+	font-size: 0.95rem;
+}
+
+.wpd-banner {
+	display: block;
+	margin: 0 0 16px;
+}
+
+.wpd-banner img {
+	max-width: 100%;
+	height: auto;
+	display: block;
+	border-radius: 4px;
+}
+
+.wpd-spec {
+	display: grid;
+	gap: 1px;
+	background: #e2e2e2;
+	border: 1px solid #e2e2e2;
+	border-radius: 6px;
+	overflow: hidden;
+	margin: 0 0 16px;
+}
+
+/* 項目数に応じた列数（最大6列まで） */
+.wpd-spec-cols-1 { grid-template-columns: 1fr; }
+.wpd-spec-cols-2 { grid-template-columns: repeat(2, 1fr); }
+.wpd-spec-cols-3 { grid-template-columns: repeat(3, 1fr); }
+.wpd-spec-cols-4 { grid-template-columns: repeat(4, 1fr); }
+.wpd-spec-cols-5 { grid-template-columns: repeat(5, 1fr); }
+.wpd-spec-cols-6 { grid-template-columns: repeat(6, 1fr); }
+
+@media (max-width: 600px) {
+	.wpd-spec-cols-3,
+	.wpd-spec-cols-4,
+	.wpd-spec-cols-5,
+	.wpd-spec-cols-6 {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}
+
+.wpd-spec-item {
+	background: #fff;
+	padding: 10px;
+	text-align: center;
+	margin: 0;
+}
+
+.wpd-spec-item dt {
+	font-size: 0.75rem;
+	color: #777;
+	font-weight: 600;
+	margin-bottom: 4px;
+}
+
+.wpd-spec-item dd {
+	margin: 0;
+	font-weight: 800;
+	color: #e60012;
+	font-size: 1rem;
+	line-height: 1.3;
+}
+
+/* 申込条件など複数行フィールドはグリッドの全幅・左寄せ・通常ウェイトで表示 */
+.wpd-spec-item-multiline {
+	grid-column: 1 / -1;
+	text-align: left;
+}
+
+.wpd-spec-item-multiline dd {
+	font-weight: 500;
+	color: #2c3338;
+	font-size: 0.9rem;
+	line-height: 1.6;
+}
+
+.wpd-points {
+	background: #f7f7f7;
+	border-radius: 6px;
+	padding: 14px 18px;
+	margin: 0 0 16px;
+}
+
+.wpd-points-title {
+	margin: 0 0 8px;
+	padding-bottom: 6px;
+	border-bottom: 2px solid #e60012;
+	font-size: 1rem;
+	font-weight: 700;
+}
+
+.wpd-points ul {
+	margin: 0;
+	padding-left: 1.2em;
+	list-style: disc;
+}
+
+.wpd-points li {
+	margin: 4px 0;
+	font-size: 0.95rem;
+}
+
+.wpd-cta {
+	text-align: center;
+	margin-top: 12px;
+}
+
+.wpd-cta-btn {
+	display: inline-block;
+	background: linear-gradient(180deg, #ffd84d 0%, #ffb800 100%);
+	color: #222;
+	font-weight: 800;
+	font-size: 1.1rem;
+	padding: 14px 32px;
+	border-radius: 999px;
+	text-decoration: none;
+	box-shadow: 0 4px 0 #c08800, 0 6px 14px rgba(0,0,0,.12);
+	transition: transform 0.1s, box-shadow 0.1s;
+	letter-spacing: 0.05em;
+}
+
+.wpd-cta-btn:hover {
+	transform: translateY(2px);
+	box-shadow: 0 2px 0 #c08800, 0 3px 8px rgba(0,0,0,.12);
+}
+
+.wpd-cta-btn:active {
+	transform: translateY(4px);
+	box-shadow: 0 0 0 #c08800;
+}
+
+/* ============================================================
+ * スタイルB：シンプル（ホワイト）
+ * ============================================================ */
+.wpd-style-b {
+	max-width: 840px;
+	margin: 0 auto;
+	font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", sans-serif;
+}
+
+.wpd-style-b .wpd-b-card {
+	background: #fff;
+	border: 1px solid #e6e6e6;
+	border-radius: 12px;
+	padding: 32px 28px;
+	box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+}
+
+.wpd-style-b .wpd-b-head {
+	text-align: center;
+	margin-bottom: 28px;
+}
+
+.wpd-style-b .wpd-b-eyebrow {
+	display: inline-block;
+	font-size: 0.72rem;
+	letter-spacing: 0.18em;
+	color: #2271b1;
+	font-weight: 700;
+	margin-bottom: 10px;
+}
+
+.wpd-style-b .wpd-b-title {
+	font-size: 1.4rem;
+	font-weight: 700;
+	color: #1a1a1a;
+	margin: 0 0 10px;
+	line-height: 1.5;
+}
+
+.wpd-style-b .wpd-b-lead {
+	font-size: 0.9rem;
+	color: #666;
+	margin: 0 0 16px;
+}
+
+.wpd-style-b .wpd-b-divider {
+	width: 40px;
+	height: 2px;
+	background: #2271b1;
+	margin: 0 auto;
+}
+
+.wpd-style-b .wpd-b-question {
+	padding: 22px 0;
+	border-bottom: 1px solid #f0f0f0;
+}
+
+.wpd-style-b .wpd-b-question:last-of-type {
+	border-bottom: none;
+}
+
+.wpd-style-b .wpd-b-qhead {
+	display: flex;
+	align-items: flex-start;
+	gap: 12px;
+	margin-bottom: 14px;
+}
+
+.wpd-style-b .wpd-b-qnum {
+	flex-shrink: 0;
+	width: 28px;
+	height: 28px;
+	background: #2271b1;
+	color: #fff;
+	border-radius: 50%;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 0.85rem;
+	font-weight: 700;
+}
+
+.wpd-style-b .wpd-b-qlabel {
+	font-size: 1.05rem;
+	font-weight: 600;
+	color: #1a1a1a;
+	margin: 2px 0 0;
+	line-height: 1.5;
+}
+
+.wpd-style-b .wpd-b-options {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 10px;
+}
+
+/* スマホ：入るだけ横に詰めて折り返す（文字数に応じた可変幅） */
+@media (max-width: 480px) {
+	.wpd-style-b .wpd-b-options {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 8px;
+	}
+	.wpd-style-b .wpd-b-opt {
+		padding: 10px 14px;
+		font-size: 0.85rem;
+		text-align: center;
+	}
+}
+
+.wpd-style-b .wpd-b-opt {
+	background: #fff;
+	border: 1.5px solid #d8d8d8;
+	border-radius: 8px;
+	padding: 14px 16px;
+	font-size: 0.95rem;
+	color: #333;
+	cursor: pointer;
+	transition: all 0.15s;
+	text-align: left;
+}
+
+.wpd-style-b .wpd-b-opt:hover {
+	border-color: #2271b1;
+	background: #f5f9fc;
+}
+
+.wpd-style-b .wpd-b-opt.is-selected {
+	border-color: #2271b1;
+	background: #2271b1;
+	color: #fff;
+}
+
+.wpd-style-b .wpd-b-submit-wrap {
+	margin-top: 24px;
+	text-align: center;
+}
+
+.wpd-style-b .wpd-b-submit {
+	background: #2271b1;
+	color: #fff;
+	border: none;
+	border-radius: 8px;
+	padding: 14px 36px;
+	font-size: 1rem;
+	font-weight: 700;
+	cursor: pointer;
+	transition: background 0.15s;
+	min-width: 220px;
+}
+
+.wpd-style-b .wpd-b-submit:hover {
+	background: #135e96;
+}
+
+/* ============================================================
+ * スタイルC：ボールド情報グラフィック（ダークグレー×アンバー）
+ * カードローン・金融系。骨太で情報量のある印象。
+ * カラー：#4A4B4A / #F5AD02 / #FFFFFF / #F5F5F5
+ * ============================================================ */
+.wpd-style-c {
+	max-width: 840px;
+	margin: 0 auto;
+	font-family: -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", sans-serif;
+	color: #4A4B4A;
+}
+
+.wpd-style-c .wpd-c-card {
+	background: #FFFFFF;
+	border: none;
+	border-radius: 14px;
+	overflow: hidden;
+	box-shadow: 0 8px 24px rgba(74, 75, 74, 0.12), 0 2px 6px rgba(74, 75, 74, 0.08);
+	padding: 0;
+}
+
+/* ヘッダー：ダークグレーブロックにアンバーバッジ */
+.wpd-style-c .wpd-c-head {
+	background: #4A4B4A;
+	color: #FFFFFF;
+	padding: 28px 28px 32px;
+	text-align: center;
+	position: relative;
+	margin-bottom: 0;
+	border-bottom: none;
+}
+
+/* ヘッダー下端のアンバー×グレー進捗風バー */
+.wpd-style-c .wpd-c-head::after {
+	content: '';
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	height: 6px;
+	background: linear-gradient(to right, #F5AD02 0 45%, #6a6b6a 45% 100%);
+}
+
+.wpd-style-c .wpd-c-eyebrow {
+	display: inline-block;
+	font-size: 0.72rem;
+	letter-spacing: 0.2em;
+	color: #4A4B4A;
+	background: #F5AD02;
+	font-weight: 800;
+	margin-bottom: 14px;
+	padding: 4px 14px;
+	border-radius: 999px;
+	border: none;
+}
+
+.wpd-style-c .wpd-c-title {
+	font-size: 1.6rem;
+	font-weight: 800;
+	color: #FFFFFF;
+	line-height: 1.4;
+	margin: 0;
+	letter-spacing: 0.02em;
+}
+
+.wpd-style-c .wpd-c-title strong,
+.wpd-style-c .wpd-c-title em {
+	color: #F5AD02;
+	font-style: normal;
+}
+
+@media (max-width: 480px) {
+	.wpd-style-c .wpd-c-title { font-size: 1.25rem; }
+	.wpd-style-c .wpd-c-head { padding: 22px 20px 26px; }
+}
+
+/* フォーム本体 */
+.wpd-style-c .wpd-c-form {
+	padding: 8px 28px 28px;
+}
+
+@media (max-width: 480px) {
+	.wpd-style-c .wpd-c-form { padding: 8px 18px 22px; }
+}
+
+.wpd-style-c .wpd-c-question {
+	padding: 24px 0;
+	border-bottom: 2px dashed #F5F5F5;
+}
+
+.wpd-style-c .wpd-c-question:last-of-type {
+	border-bottom: none;
+}
+
+.wpd-style-c .wpd-c-qhead {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	margin-bottom: 16px;
+	padding-left: 0;
+	border-left: none;
+}
+
+/* Q番号を大きめアンバーバッジに */
+.wpd-style-c .wpd-c-qnum {
+	flex-shrink: 0;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	background: #F5AD02;
+	color: #4A4B4A;
+	font-weight: 800;
+	font-size: 0.9rem;
+	letter-spacing: 0.03em;
+	padding: 6px 12px;
+	border-radius: 6px;
+	min-width: 44px;
+	box-shadow: 0 2px 0 #4A4B4A;
+}
+
+.wpd-style-c .wpd-c-qlabel {
+	font-size: 1.1rem;
+	font-weight: 800;
+	color: #4A4B4A;
+	line-height: 1.5;
+}
+
+.wpd-style-c .wpd-c-options {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 10px;
+	margin-left: 0;
+}
+
+/* スマホ：入るだけ横に詰めて折り返す（文字数に応じた可変幅） */
+@media (max-width: 480px) {
+	.wpd-style-c .wpd-c-options {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 8px;
+	}
+	.wpd-style-c .wpd-c-opt {
+		padding: 10px 14px;
+		font-size: 0.85rem;
+		text-align: center;
+	}
+}
+
+/* 選択肢：白カード + 太めボーダー、ホバーでアンバー枠 */
+.wpd-style-c .wpd-c-opt {
+	background: #FFFFFF;
+	border: 2px solid #F5F5F5;
+	padding: 14px 18px;
+	font-size: 0.95rem;
+	color: #4A4B4A;
+	font-weight: 700;
+	cursor: pointer;
+	transition: all 0.15s;
+	text-align: left;
+	line-height: 1.4;
+	border-radius: 10px;
+	position: relative;
+}
+
+.wpd-style-c .wpd-c-opt:hover {
+	border-color: #F5AD02;
+	background: #FFFFFF;
+	transform: translateY(-1px);
+	box-shadow: 0 3px 8px rgba(245, 173, 2, 0.15);
+}
+
+.wpd-style-c .wpd-c-opt.is-selected {
+	background: #4A4B4A;
+	border-color: #4A4B4A;
+	color: #FFFFFF;
+	box-shadow: 0 3px 0 #F5AD02;
+}
+
+/* 送信ボタン：BIGアンバー＋ダーク3D影 */
+.wpd-style-c .wpd-c-submit-wrap {
+	margin-top: 28px;
+	text-align: center;
+}
+
+.wpd-style-c .wpd-c-submit {
+	appearance: none;
+	-webkit-appearance: none;
+	background: #F5AD02;
+	color: #4A4B4A;
+	border: none;
+	font-family: inherit;
+	font-size: 1.15rem;
+	font-weight: 800;
+	letter-spacing: 0.08em;
+	padding: 18px 56px;
+	cursor: pointer;
+	transition: transform 0.1s, box-shadow 0.1s, background 0.15s;
+	min-width: 280px;
+	position: relative;
+	border-radius: 12px;
+	box-shadow: 0 5px 0 #4A4B4A, 0 8px 20px rgba(74, 75, 74, 0.2);
+}
+
+.wpd-style-c .wpd-c-submit::after {
+	content: '→';
+	margin-left: 12px;
+	font-size: 1.2rem;
+	vertical-align: middle;
+	font-weight: 800;
+}
+
+.wpd-style-c .wpd-c-submit:hover {
+	background: #ffbe33;
+	transform: translateY(2px);
+	box-shadow: 0 3px 0 #4A4B4A, 0 4px 12px rgba(74, 75, 74, 0.18);
+}
+
+.wpd-style-c .wpd-c-submit:active {
+	transform: translateY(5px);
+	box-shadow: 0 0 0 #4A4B4A;
+}
+
+/* スタイルC のステップナビ配色 */
+.wpd-style-c .wpd-step-nav {
+	padding: 8px 28px 24px;
+}
+.wpd-style-c .wpd-step-progress {
+	color: #4A4B4A;
+}
+.wpd-style-c .wpd-step-bar {
+	background: #F5F5F5;
+	height: 8px;
+}
+.wpd-style-c .wpd-step-bar-fill {
+	background: #F5AD02;
+}
+.wpd-style-c .wpd-step-next {
+	background: #F5AD02;
+	color: #4A4B4A;
+	border-color: transparent;
+	border-radius: 10px;
+	box-shadow: 0 3px 0 #4A4B4A;
+	font-weight: 800;
+}
+.wpd-style-c .wpd-step-next:hover {
+	background: #ffbe33;
+	border-color: transparent;
+}
+.wpd-style-c .wpd-step-prev {
+	border-radius: 10px;
+	background: #F5F5F5;
+	border-color: #F5F5F5;
+	color: #4A4B4A;
+	font-weight: 700;
+}
+.wpd-style-c .wpd-step-prev:hover:not(:disabled) {
+	background: #FFFFFF;
+	border-color: #4A4B4A;
+}
+
+/* ============================================================
+ * 結果ページ スタイルB：シンプル（青）
+ * ============================================================ */
+.wpd-result-style-B .wpd-card-result {
+	border: 1px solid #e6e6e6;
+	border-radius: 12px;
+	box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+}
+
+.wpd-result-style-B .wpd-rank-badge {
+	background: #2271b1;
+	border-radius: 8px;
+}
+.wpd-result-style-B.wpd-result-wrap .wpd-rank-1 .wpd-rank-badge { background: #2271b1; }
+.wpd-result-style-B.wpd-result-wrap .wpd-rank-2 .wpd-rank-badge { background: #4c8fbf; }
+.wpd-result-style-B.wpd-result-wrap .wpd-rank-3 .wpd-rank-badge { background: #7aabc9; }
+
+.wpd-result-style-B .wpd-pr-tag {
+	color: #1a1a1a;
+}
+
+.wpd-result-style-B .wpd-catch {
+	background: #eaf3fa;
+	color: #2271b1;
+}
+
+.wpd-result-style-B .wpd-spec-item dd {
+	color: #2271b1;
+}
+
+.wpd-result-style-B .wpd-points-title {
+	border-bottom: 2px solid #2271b1;
+}
+
+/* Style B の CTA：青ベタ（落ち着いた印象を維持） */
+.wpd-result-style-B .wpd-cta-btn {
+	background: #2271b1;
+	color: #fff;
+	border-radius: 8px;
+	box-shadow: none;
+	letter-spacing: 0;
+}
+.wpd-result-style-B .wpd-cta-btn:hover {
+	background: #135e96;
+	transform: none;
+	box-shadow: none;
+}
+.wpd-result-style-B .wpd-cta-btn:active {
+	transform: none;
+	box-shadow: none;
+}
+
+
+/* ============================================================
+ * 結果ページ スタイルC：ダークグレー×アンバー
+ * カラー：#4A4B4A / #F5AD02 / #FFFFFF / #F5F5F5
+ * ============================================================ */
+.wpd-result-style-C {
+	color: #333;
+	font-family: -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", sans-serif;
+}
+
+.wpd-result-style-C .wpd-card-result {
+	background: #fff;
+	border: 1px solid #d5d5d5;
+	border-top: 4px solid #4A4B4A;
+	border-radius: 0;
+	box-shadow: 0 4px 12px rgba(74, 75, 74, 0.08);
+	padding: 24px 22px;
+	transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+.wpd-result-style-C .wpd-card-result:hover {
+	box-shadow: 0 6px 18px rgba(74, 75, 74, 0.15);
+	transform: translateY(-1px);
+}
+
+/* 1位のカードは金色の上帯で強調 */
+.wpd-result-style-C .wpd-rank-1.wpd-card-result {
+	border-top-color: #F5AD02;
+	box-shadow: 0 4px 14px rgba(245, 173, 2, 0.18);
+}
+
+.wpd-result-style-C .wpd-card-result-head {
+	border-bottom: 1px solid #e5e5e5;
+	padding-bottom: 12px;
+	margin-bottom: 16px;
+}
+
+.wpd-result-style-C .wpd-rank-badge {
+	background: #4A4B4A;
+	color: #fff;
+	border-radius: 0;
+	font-weight: 800;
+	letter-spacing: 0.05em;
+	min-width: 52px;
+	height: 32px;
+	font-size: 0.95rem;
+	box-shadow: 0 2px 4px rgba(0,0,0,0.12);
+}
+/* メダル配色（金・銀・銅） */
+.wpd-result-style-C.wpd-result-wrap .wpd-rank-1 .wpd-rank-badge {
+	background: linear-gradient(135deg, #ffc655 0%, #F5AD02 55%, #b88300 100%);
+	color: #fff;
+	box-shadow: 0 2px 6px rgba(245, 173, 2, 0.4);
+}
+.wpd-result-style-C.wpd-result-wrap .wpd-rank-2 .wpd-rank-badge {
+	background: linear-gradient(135deg, #c9d0d8 0%, #a8b0ba 55%, #8a94a0 100%);
+	color: #fff;
+	box-shadow: 0 2px 6px rgba(138, 148, 160, 0.35);
+}
+.wpd-result-style-C.wpd-result-wrap .wpd-rank-3 .wpd-rank-badge {
+	background: linear-gradient(135deg, #d19566 0%, #b5764f 55%, #8f5b3a 100%);
+	color: #fff;
+	box-shadow: 0 2px 6px rgba(181, 118, 79, 0.35);
+}
+
+.wpd-result-style-C .wpd-pr-tag {
+	color: #4A4B4A;
+	font-weight: 700;
+	font-size: 1.15rem;
+}
+
+.wpd-result-style-C .wpd-catch {
+	background: #fef5d8;
+	color: #b88300;
+	border: 1px solid #f5c860;
+	border-left: 4px solid #F5AD02;
+	border-radius: 0;
+	font-weight: 700;
+	padding: 6px 14px;
+	font-size: 0.9rem;
+}
+
+.wpd-result-style-C .wpd-spec {
+	border-radius: 0;
+	border: 1px solid #d5d5d5;
+	background: #d5d5d5;
+}
+
+.wpd-result-style-C .wpd-spec-item dt {
+	color: #666;
+	font-size: 0.75rem;
+	letter-spacing: 0.05em;
+}
+
+.wpd-result-style-C .wpd-spec-item dd {
+	color: #4A4B4A;
+	font-weight: 700;
+}
+
+.wpd-result-style-C .wpd-spec-item-multiline dd {
+	color: #333;
+	font-weight: 500;
+}
+
+.wpd-result-style-C .wpd-points {
+	background: #f6f8fa;
+	border-radius: 0;
+	border-left: 4px solid #4A4B4A;
+	padding: 14px 18px;
+}
+
+.wpd-result-style-C .wpd-points-title {
+	border-bottom: 1px solid #4A4B4A;
+	color: #4A4B4A;
+	font-weight: 700;
+	padding-bottom: 8px;
+	margin-bottom: 10px;
+}
+
+.wpd-result-style-C .wpd-points li {
+	color: #333;
+}
+
+/* Style C の CTA：赤グラデ（link-btn 相当） */
+.wpd-result-style-C .wpd-cta-btn {
+	background: linear-gradient(to bottom, #ff5a3f 0%, #e83f25 100%);
+	color: #fff;
+	border-radius: 6px;
+	font-weight: bold;
+	padding: 12px 28px;
+	box-shadow: 0 4px 0 #b92f1c;
+	transition: all 0.15s ease;
+	letter-spacing: 1px;
+	line-height: 1.5;
+	border: none;
+	position: relative;
+	top: 0;
+}
+.wpd-result-style-C .wpd-cta-btn:hover {
+	top: 2px;
+	box-shadow: 0 2px 0 #b92f1c;
+	transform: none;
+	color: #fff;
+	background: linear-gradient(to bottom, #ff5a3f 0%, #e83f25 100%);
+}
+.wpd-result-style-C .wpd-cta-btn:active {
+	top: 4px;
+	transform: none;
+	box-shadow: 0 0 0 #b92f1c;
+}
+
+
+/* ============================================================
+ * スタイルD：クリーンブルー（#006fbb）
+ * 企業・保険・通信系向け。清潔感と信頼感のあるブルー基調。
+ * カラー：#006fbb / #00507f / #eaf4fb / #FFFFFF
+ * ============================================================ */
+.wpd-style-d {
+	max-width: 840px;
+	margin: 0 auto;
+	font-family: -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", sans-serif;
+	color: #2c3338;
+}
+
+.wpd-style-d .wpd-d-card {
+	background: #FFFFFF;
+	border: 1px solid #d8e6f2;
+	border-radius: 16px;
+	overflow: hidden;
+	box-shadow: 0 6px 20px rgba(0, 111, 187, 0.10), 0 2px 6px rgba(0, 111, 187, 0.06);
+}
+
+/* ヘッダー：ブルーグラデーション */
+.wpd-style-d .wpd-d-head {
+	background: linear-gradient(135deg, #0086dd 0%, #006fbb 60%, #005a99 100%);
+	color: #FFFFFF;
+	padding: 30px 28px;
+	text-align: center;
+	position: relative;
+	overflow: hidden;
+}
+
+.wpd-style-d .wpd-d-head::before {
+	content: '';
+	position: absolute;
+	top: -40px;
+	right: -40px;
+	width: 160px;
+	height: 160px;
+	background: rgba(255, 255, 255, 0.08);
+	border-radius: 50%;
+}
+
+.wpd-style-d .wpd-d-head::after {
+	content: '';
+	position: absolute;
+	bottom: -50px;
+	left: -30px;
+	width: 120px;
+	height: 120px;
+	background: rgba(255, 255, 255, 0.06);
+	border-radius: 50%;
+}
+
+.wpd-style-d .wpd-d-eyebrow {
+	display: inline-block;
+	font-size: 0.8rem;
+	font-weight: 700;
+	color: #FFFFFF;
+	background: rgba(255, 255, 255, 0.18);
+	padding: 5px 16px;
+	border-radius: 999px;
+	margin-bottom: 12px;
+	position: relative;
+	z-index: 1;
+	letter-spacing: 0.04em;
+}
+
+.wpd-style-d .wpd-d-title {
+	font-size: 1.55rem;
+	font-weight: 800;
+	color: #FFFFFF;
+	line-height: 1.4;
+	margin: 0;
+	position: relative;
+	z-index: 1;
+	letter-spacing: 0.02em;
+}
+
+.wpd-style-d .wpd-d-title strong,
+.wpd-style-d .wpd-d-title em {
+	color: #ffe066;
+	font-style: normal;
+}
+
+@media (max-width: 480px) {
+	.wpd-style-d .wpd-d-title { font-size: 1.25rem; }
+	.wpd-style-d .wpd-d-head { padding: 24px 20px; }
+}
+
+/* フォーム本体 */
+.wpd-style-d .wpd-d-form {
+	padding: 8px 28px 28px;
+}
+
+@media (max-width: 480px) {
+	.wpd-style-d .wpd-d-form { padding: 8px 18px 22px; }
+}
+
+.wpd-style-d .wpd-d-question {
+	padding: 24px 0;
+	border-bottom: 1px solid #eaf4fb;
+}
+
+.wpd-style-d .wpd-d-question:last-of-type {
+	border-bottom: none;
+}
+
+.wpd-style-d .wpd-d-qhead {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	margin-bottom: 16px;
+}
+
+/* Q番号：ブルーの角丸バッジ */
+.wpd-style-d .wpd-d-qnum {
+	flex-shrink: 0;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	background: #006fbb;
+	color: #FFFFFF;
+	font-weight: 800;
+	font-size: 0.9rem;
+	letter-spacing: 0.03em;
+	padding: 6px 12px;
+	border-radius: 8px;
+	min-width: 44px;
+	box-shadow: 0 2px 6px rgba(0, 111, 187, 0.25);
+}
+
+.wpd-style-d .wpd-d-qlabel {
+	font-size: 1.1rem;
+	font-weight: 700;
+	color: #2c3338;
+	line-height: 1.5;
+}
+
+.wpd-style-d .wpd-d-options {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 10px;
+}
+
+/* スマホ：入るだけ横に詰めて折り返す（文字数に応じた可変幅） */
+@media (max-width: 480px) {
+	.wpd-style-d .wpd-d-options {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 8px;
+	}
+	.wpd-style-d .wpd-d-opt {
+		padding: 10px 14px;
+		font-size: 0.85rem;
+		text-align: center;
+	}
+}
+
+/* 選択肢：白カード + 淡ブルー枠、ホバー/選択でブルー */
+.wpd-style-d .wpd-d-opt {
+	background: #FFFFFF;
+	border: 2px solid #d8e6f2;
+	padding: 14px 18px;
+	font-size: 0.95rem;
+	color: #2c3338;
+	font-weight: 600;
+	cursor: pointer;
+	transition: all 0.15s;
+	text-align: left;
+	line-height: 1.4;
+	border-radius: 10px;
+}
+
+.wpd-style-d .wpd-d-opt:hover {
+	border-color: #006fbb;
+	background: #eaf4fb;
+}
+
+.wpd-style-d .wpd-d-opt.is-selected {
+	background: #006fbb;
+	border-color: #006fbb;
+	color: #FFFFFF;
+	box-shadow: 0 3px 8px rgba(0, 111, 187, 0.3);
+}
+
+/* 送信ボタン：ブルーグラデ＋3D影 */
+.wpd-style-d .wpd-d-submit-wrap {
+	margin-top: 28px;
+	text-align: center;
+}
+
+.wpd-style-d .wpd-d-submit {
+	appearance: none;
+	-webkit-appearance: none;
+	background: linear-gradient(180deg, #0086dd 0%, #006fbb 60%, #005a99 100%);
+	color: #FFFFFF;
+	border: none;
+	font-family: inherit;
+	font-size: 1.15rem;
+	font-weight: 800;
+	letter-spacing: 0.06em;
+	padding: 17px 52px;
+	cursor: pointer;
+	transition: transform 0.1s, box-shadow 0.1s;
+	min-width: 280px;
+	border-radius: 999px;
+	box-shadow: 0 4px 0 #00507f, 0 6px 16px rgba(0, 111, 187, 0.25);
+}
+
+.wpd-style-d .wpd-d-submit::after {
+	content: '→';
+	margin-left: 12px;
+	font-size: 1.15rem;
+	vertical-align: middle;
+	font-weight: 800;
+}
+
+.wpd-style-d .wpd-d-submit:hover {
+	transform: translateY(2px);
+	box-shadow: 0 2px 0 #00507f, 0 3px 10px rgba(0, 111, 187, 0.22);
+}
+
+.wpd-style-d .wpd-d-submit:active {
+	transform: translateY(4px);
+	box-shadow: 0 0 0 #00507f;
+}
+
+/* スタイルD のステップナビ配色 */
+.wpd-style-d .wpd-step-nav {
+	padding: 8px 28px 24px;
+}
+.wpd-style-d .wpd-step-progress {
+	color: #006fbb;
+}
+.wpd-style-d .wpd-step-bar {
+	background: #eaf4fb;
+}
+.wpd-style-d .wpd-step-bar-fill {
+	background: linear-gradient(90deg, #0086dd 0%, #006fbb 100%);
+}
+.wpd-style-d .wpd-step-next {
+	background: #006fbb;
+	color: #FFFFFF;
+	border-color: #006fbb;
+	box-shadow: 0 3px 0 #00507f;
+}
+.wpd-style-d .wpd-step-next:hover {
+	background: #0086dd;
+	border-color: #0086dd;
+}
+.wpd-style-d .wpd-step-prev {
+	background: #FFFFFF;
+	border-color: #d8e6f2;
+	color: #2c3338;
+}
+.wpd-style-d .wpd-step-prev:hover:not(:disabled) {
+	border-color: #006fbb;
+	background: #eaf4fb;
+}
+
+
+/* ============================================================
+ * 結果ページ スタイルD：クリーンブルー（#006fbb）
+ * ============================================================ */
+.wpd-result-style-D {
+	color: #2c3338;
+	font-family: -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", sans-serif;
+}
+
+.wpd-result-style-D .wpd-card-result {
+	background: #fff;
+	border: 1px solid #d8e6f2;
+	border-top: 4px solid #006fbb;
+	border-radius: 12px;
+	box-shadow: 0 4px 14px rgba(0, 111, 187, 0.08);
+	padding: 24px 22px;
+	transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+.wpd-result-style-D .wpd-card-result:hover {
+	box-shadow: 0 6px 20px rgba(0, 111, 187, 0.15);
+	transform: translateY(-1px);
+}
+
+.wpd-result-style-D .wpd-card-result-head {
+	border-bottom: 1px solid #eaf4fb;
+	padding-bottom: 12px;
+	margin-bottom: 16px;
+}
+
+.wpd-result-style-D .wpd-rank-badge {
+	background: #006fbb;
+	color: #fff;
+	border-radius: 8px;
+	font-weight: 800;
+	letter-spacing: 0.05em;
+	min-width: 52px;
+	height: 32px;
+	font-size: 0.95rem;
+	box-shadow: 0 2px 5px rgba(0, 111, 187, 0.25);
+}
+/* メダル配色（金・銀・銅） */
+.wpd-result-style-D.wpd-result-wrap .wpd-rank-1 .wpd-rank-badge {
+	background: linear-gradient(135deg, #ffc655 0%, #f0a800 55%, #c68a00 100%);
+	color: #fff;
+	box-shadow: 0 2px 6px rgba(240, 168, 0, 0.4);
+}
+.wpd-result-style-D.wpd-result-wrap .wpd-rank-2 .wpd-rank-badge {
+	background: linear-gradient(135deg, #c9d0d8 0%, #a8b0ba 55%, #8a94a0 100%);
+	color: #fff;
+	box-shadow: 0 2px 6px rgba(138, 148, 160, 0.35);
+}
+.wpd-result-style-D.wpd-result-wrap .wpd-rank-3 .wpd-rank-badge {
+	background: linear-gradient(135deg, #d19566 0%, #b5764f 55%, #8f5b3a 100%);
+	color: #fff;
+	box-shadow: 0 2px 6px rgba(181, 118, 79, 0.35);
+}
+
+/* 1位カードはブルーを強めて強調 */
+.wpd-result-style-D .wpd-rank-1.wpd-card-result {
+	border-top-color: #f0a800;
+	box-shadow: 0 4px 16px rgba(240, 168, 0, 0.18);
+}
+
+.wpd-result-style-D .wpd-pr-tag {
+	color: #006fbb;
+	font-weight: 800;
+	font-size: 1.15rem;
+}
+
+.wpd-result-style-D .wpd-catch {
+	background: #eaf4fb;
+	color: #006fbb;
+	border-left: 4px solid #006fbb;
+	border-radius: 0 6px 6px 0;
+	font-weight: 700;
+	padding: 6px 14px;
+	font-size: 0.9rem;
+}
+
+.wpd-result-style-D .wpd-spec {
+	border: 1px solid #d8e6f2;
+	background: #d8e6f2;
+	border-radius: 8px;
+}
+
+.wpd-result-style-D .wpd-spec-item dt {
+	color: #5a7184;
+	font-size: 0.75rem;
+	letter-spacing: 0.05em;
+}
+
+.wpd-result-style-D .wpd-spec-item dd {
+	color: #006fbb;
+	font-weight: 800;
+}
+
+.wpd-result-style-D .wpd-spec-item-multiline dd {
+	color: #2c3338;
+	font-weight: 500;
+}
+
+.wpd-result-style-D .wpd-points {
+	background: #f4f9fd;
+	border-radius: 0 8px 8px 0;
+	border-left: 4px solid #006fbb;
+	padding: 14px 18px;
+}
+
+.wpd-result-style-D .wpd-points-title {
+	border-bottom: 1px solid #006fbb;
+	color: #006fbb;
+	font-weight: 700;
+	padding-bottom: 8px;
+	margin-bottom: 10px;
+}
+
+.wpd-result-style-D .wpd-points li {
+	color: #2c3338;
+}
+
+/* Style D の CTA：ブルーグラデ */
+.wpd-result-style-D .wpd-cta-btn {
+	background: linear-gradient(180deg, #0086dd 0%, #006fbb 60%, #005a99 100%);
+	color: #fff;
+	border-radius: 999px;
+	font-weight: 800;
+	padding: 14px 32px;
+	box-shadow: 0 4px 0 #00507f, 0 6px 14px rgba(0, 111, 187, 0.22);
+	letter-spacing: 0.05em;
+}
+.wpd-result-style-D .wpd-cta-btn:hover {
+	transform: translateY(2px);
+	box-shadow: 0 2px 0 #00507f, 0 3px 8px rgba(0, 111, 187, 0.22);
+	color: #fff;
+}
+.wpd-result-style-D .wpd-cta-btn:active {
+	transform: translateY(4px);
+	box-shadow: 0 0 0 #00507f;
+}
+
+
